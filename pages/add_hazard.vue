@@ -42,21 +42,13 @@
             hazard_list:[]
         }
     },
-    async fetch(){
-        this.hazard_list = await this.$axios.$post('http://localhost:3000/api/hazard',{
-                type: document.getElementById('Type').value,
-                name: document.getElementById('ItemName').value,
-                hazard:document.getElementById('HazardName').value
-            })
-        console.log(this.hazard_list)
-    },
     methods:{
         async upload(){
             let temp = []
             temp = await this.$axios.$post('http://localhost:3000/api/hazard',{
-                type: 'all',
-                name: 'Ace',
-                hazard:'Test'
+                type: document.getElementById('Type').value,
+                name: document.getElementById('ItemName').value,
+                hazard:document.getElementById('HazardName').value
             })
             if (!Array.isArray(temp)) {
                 temp = [temp]
