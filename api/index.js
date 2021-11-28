@@ -7,32 +7,73 @@ app.use(express.json());
 
 //create hazard
 app.post(`/hazard`, async (req, res) => {
-    if(await prisma.hazard.findUnique({
-        where: {
-            hazardName: req.body.hazard,
-          },
-
-      })=== null){
-        const result = await prisma.hazard.create({
-            data: {
-              hazardName: req.body.hazard,
-            },
-          })
-          res.json(result)
+  const itemsId = []
+  if (req.body.type === 'last') {
+    const item = await prisma.item.findFirst({
+      where: { name:{
+        contains: req.body.name
+        } 
+      },
+      take: -1
+    })
+    itemsId.push(item.id)
+  }
+  else{
+    const items = await prisma.item.findMany({
+      where: { name:{
+        contains: req.body.name
+        } 
       }
+    })
+    
+    items.forEach(item => itemsId.push(item.id))
+  }
+  let findHazard = await prisma.hazard.findUnique({ where: { hazardName: req.body.hazard,} })
+  let result = []
+  if(findHazard === null){
+    result = await prisma.hazard.create({
+      data: {
+        hazardName: req.body.hazard,
+      },
+    })
+    findHazard = result
+  }
+  result = []
+  for (let i = 0; i < itemsId.length; i++) {
+    result.push(await prisma.item.update({
+      where:{
+        id: itemsId[i]
+      }, 
+      data:{
+        hazards:{
+          connect:{
+                id: findHazard.id
+          }
+        }
+      }
+    })
+    )
+ 
+  }
+  res.json(result)
   })
 //create item
 app.post('/item', async (req, res) => {
-    const { name, quantity, volume, unit, hazard } = req.body
+    const { name, quantity, measure, unit, hazard } = req.body
     const post = await prisma.item.create({
       data: {
           name,
           quantity,
-          volume,
+          measure,
           unit,
           hazards:{
             connectOrCreate:{
-              hazardName: hazard
+              where:{
+                hazardName: hazard
+              },
+              create:{
+                hazardName: hazard
+              }
             }
           }
       },
@@ -116,6 +157,22 @@ app.get("/allhazards", async (req, res) => {
     })
     res.send(draftPosts)
   })
+
+  //Get Hazards in Item
+  app.get('/HazardsInItem', async (req, res) => {
+    const draftPosts = await prisma.hazard.findMany({
+      where: {
+        name:{
+          some:{
+            id: Number(req.query.searchString)
+          }
+        }
+        
+      },
+    })
+    res.send(draftPosts)
+  })
+
 export default {
     path: "/api",
     handler: app

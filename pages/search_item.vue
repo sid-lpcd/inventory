@@ -26,11 +26,26 @@
             <span class="Id_F">Id</span>
             <span class="Name_F">Name</span>
             <span class="Quantity_F">Quantity</span>
-            <span class="Volume_F">Volume</span>
+            <span class="Measure_F">Measure</span>
             <span class="Entry_F">Entry Date</span>
             <span class="Updated_F">Updated At</span>
             <span class="Hazards_F">Hazards</span>
         </div>
+        <div v-if="show">
+            <div v-for="(item,index) in search_list" :key="index" class="nextRow">
+                <span class="Id_N">{{item.id}}</span>
+                <span class="Name_N">{{item.name}}</span>
+                <span class="Quantity_N">{{item.quantity}}</span>
+                <span class="Measure_N">{{item.measure}} {{item.unit}}</span>
+                <span class="Entry_N">{{item.createdAt.slice(0,10)}}</span>
+                <span class="Updated_N"> {{item.updatedAt.slice(0,10)}}</span>
+                <div v-for="(hazard_n,index) in item.hazards" :key="index" class="Hazards_N" >
+                    <span class="Hazard_N">{{hazard_n.hazardName}}</span>
+                </div>
+                
+            </div>
+        </div>
+        
     </div>
 </div>
 </template>
@@ -40,6 +55,7 @@
     data(){
         return{
             visibleErr: false,
+            show: false,
             selection: 'Name',
             placeholder_text: 'Enter the NAME of the Item', 
             items_list:[], 
@@ -88,27 +104,35 @@
                 console.log(startDate)
                 console.log(endDate)
             }
-            this.search_list = []
+            let temp = []
             switch (sel) {
                 case 'Name':     
-                    this.search_list = await this.$axios.$get('http://localhost:3000/api/ItemByName',{ params: { searchString: search } })
+                    temp = await this.$axios.$get('http://localhost:3000/api/ItemByName',{ params: { searchString: search } })
                     break;
             
                 case 'Id':
-                    this.search_list = await this.$axios.$get('http://localhost:3000/api/ItemById',{ params: { searchString: search } })
+                    temp = await this.$axios.$get('http://localhost:3000/api/ItemById',{ params: { searchString: search } })
                     break;
                 case 'Date of Entry':
-                    console.log('start')
-                    this.search_list = await this.$axios.$get('http://localhost:3000/api/ItemByDate',{ params: { start: startDate, end: endDate } })
+                    temp = await this.$axios.$get('http://localhost:3000/api/ItemByDate',{ params: { start: startDate, end: endDate } })
                     break;
                 case 'Hazards':
-                    console.log(this.selected_hazards)
-                    this.search_list = await this.$axios.$get('http://localhost:3000/api/ItemByHazard',{ params: { searchString: this.selected_hazards } })
+                    temp = await this.$axios.$get('http://localhost:3000/api/ItemByHazard',{ params: { searchString: this.selected_hazards } })
                     break;
             }
-            
+            if (!Array.isArray(temp)) {
+                temp = [temp]
+            }
+   
+    	    for( let i = 0; i <temp.length; i++ ){
+                const hazArr = await this.$axios.$get('http://localhost:3000/api/HazardsInItem',{ params: { searchString: temp[i].id } })
+                const hazards = {hazards: hazArr}
+                Object.assign(temp[i],hazards)     
+            }
+            console.log(temp)
+            this.search_list = temp
+            this.show = true
             console.log(this.search_list)
-
         }
 
     }
@@ -234,7 +258,7 @@
     font-size: 15px;
     text-align: center;
 }
-.Volume_F{
+.Measure_F{
     position: relative;
     left: 1.6cm;
     top: 0px;

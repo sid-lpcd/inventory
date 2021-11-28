@@ -1,10 +1,8 @@
 <template>
 <div>
-<input type="text" id="Name">
-<input type="text" id="Quantity">
-<input type="text" id="Measure">
-<input type="text" id="Unit">
-<input type="text" id="Hazards">
+<input type="text" id="Type">
+<input type="text" id="ItemName">
+<input type="text" id="HazardName">
 <button @click="upload" class="button"></button>
 <div class="table">
         <div class="firstRow">
@@ -45,17 +43,20 @@
         }
     },
     async fetch(){
-      
+        this.hazard_list = await this.$axios.$post('http://localhost:3000/api/hazard',{
+                type: document.getElementById('Type').value,
+                name: document.getElementById('ItemName').value,
+                hazard:document.getElementById('HazardName').value
+            })
+        console.log(this.hazard_list)
     },
     methods:{
         async upload(){
             let temp = []
-            temp = await this.$axios.$post('http://localhost:3000/api/item',{
-                name: 'Test', 
-                quantity: Number(1),
-                measure: Number(100),
-                unit: 'ml',
-                hazard: 'Flam'
+            temp = await this.$axios.$post('http://localhost:3000/api/hazard',{
+                type: 'all',
+                name: 'Ace',
+                hazard:'Test'
             })
             if (!Array.isArray(temp)) {
                 temp = [temp]
@@ -67,11 +68,6 @@
             }
             this.items_list = temp
             this.show = true
-        },
-        async uploadHazard(){
-            this.hazard_list = await this.$axios.$post('http://localhost:3000/api/hazard',{
-                hazard:'Flam'
-            })
         }
     }
         

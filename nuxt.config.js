@@ -1,8 +1,5 @@
 export default {
-  mode: 'static',
-  router: {
-     base: '/Invetory_Metalchemy/'
-  },
+
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'inventory',
