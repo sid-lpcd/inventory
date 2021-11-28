@@ -1,0 +1,30 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Item {
+  id  Int @id @default(autoincrement())
+  name String
+  quantity Int
+  volume Int
+  unit String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  hazards Hazard[] 
+  
+}
+
+model Hazard{
+  id Int @id @default(autoincrement())
+  hazardName String @unique
+  name Item? @relation(fields: [hazardsId], references: [id])
+  hazardsId Int? 
+}
