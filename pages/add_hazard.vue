@@ -1,5 +1,6 @@
 <template>
 <div>
+    <Metalchemy />
 <input type="text" id="Type">
 <input type="text" id="ItemName">
 <input type="text" id="HazardName">

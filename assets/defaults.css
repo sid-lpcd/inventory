@@ -1,0 +1,25 @@
+@font-face {
+  font-family: "Metalchemy-reg";
+  src: local("Metalchemy-reg"),
+   url(~assets/fonts/Coyote-regular.ttf) format("truetype");
+}
+html {
+  font-family: "Metalchemy-reg";
+}
+
+@font-face {
+  font-family: "Metalchemy-bold";
+  src: local("Metalchemy-bold"),
+   url(~assets/fonts/Coyote-bold.ttf) format("truetype");
+}
+html {
+  font-family: "Metalchemy-bold";
+}
+@font-face {
+  font-family: "Metalchemy-sbold";
+  src: local("Metalchemy-sbold"),
+   url(~assets/fonts/Coyote-semibold.ttf) format("truetype");
+}
+html {
+  font-family: "Metalchemy-sbold";
+}

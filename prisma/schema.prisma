@@ -14,7 +14,7 @@ model Item {
   id  Int @id @default(autoincrement())
   name String
   quantity Int
-  measure Int
+  measure Float
   unit String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

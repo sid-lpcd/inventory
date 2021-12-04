@@ -1,5 +1,6 @@
 <template>
   <div>
+      <Metalchemy />
       <div class="table">
         <div class="firstRow">
             <span class="Id_F">Id</span>

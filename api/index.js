@@ -1,8 +1,42 @@
 import express from "express";
 import { PrismaClient} from "@prisma/client";
+import {PythonShell} from 'python-shell';
 const app = express();
 const prisma = new PrismaClient();
 app.use(express.json());
+
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const multer = require('multer')
+ 
+// enable CORS
+app.use(cors());
+// parse application/json
+app.use(bodyParser.json());
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({extended: true}));
+// serving static files
+app.use('/uploads', express.static('uploads'));
+ 
+// handle storage using multer
+var storage = multer.diskStorage({
+   destination: function (req, file, cb) {
+      cb(null, './python_files/images/');
+   },
+   filename: function (req, file, cb) {
+      cb(null, Date.now() +'_' + file.originalname);
+   }
+});
+var upload = multer({ storage: storage });
+
+// handle single file upload
+app.post('/upload-file', upload.single('File'), (req, res, next) => {
+   const file = req.file;
+   if (!file) {
+      return res.status(400).send({ message: 'Please upload a file.' });
+   }
+   res.json(req.file.path)
+});
 
 
 //create hazard
@@ -66,18 +100,47 @@ app.post('/item', async (req, res) => {
           quantity,
           measure,
           unit,
-          hazards:{
-            connectOrCreate:{
-              where:{
-                hazardName: hazard
-              },
-              create:{
-                hazardName: hazard
+      },
+    })
+
+    for (let index = 0; index < hazard.length; index++) {
+      const itemsId = []
+      const item = await prisma.item.findFirst({
+        where: { name:{
+          contains: name
+          } 
+        },
+        take: -1
+      })
+      itemsId.push(item.id)
+    
+      let findHazard = await prisma.hazard.findUnique({ where: { hazardName: hazard[index],} })
+      let result = []
+      if(findHazard === null){
+        result = await prisma.hazard.create({
+          data: {
+            hazardName: hazard[index],
+          },
+        })
+        findHazard = result
+      }
+      result = []
+      for (let i = 0; i < itemsId.length; i++) {
+        result.push(await prisma.item.update({
+          where:{
+            id: itemsId[i]
+          }, 
+          data:{
+            hazards:{
+              connect:{
+                    id: findHazard.id
               }
             }
           }
-      },
-    })
+        })
+        )
+      }
+    }
     res.status(200).json(post)
   })
 
@@ -93,10 +156,9 @@ app.get("/allhazards", async (req, res) => {
   res.json(todos);
 })
 
-
   //Delete Item
   app.delete(`/DeleteItemById`, async (req, res) => {
-    const { id } = req.query
+    const { id } = req.query.searchString
     const post = await prisma.item.delete({
       where: {
         id: parseInt(id),
@@ -104,6 +166,7 @@ app.get("/allhazards", async (req, res) => {
     })
     res.json(post)
   })
+
   //Search for Item
   app.get('/ItemByName', async (req, res) => {
     const draftPosts = await prisma.item.findMany({
@@ -172,6 +235,19 @@ app.get("/allhazards", async (req, res) => {
     })
     res.send(draftPosts)
   })
+  app.get("/imageUpload", async (req, res) => {
+    let options = {
+        mode: 'text',
+        pythonOptions: ['-u'],
+        scriptPath: 'C:/Users/sidon/Documents/Metalchemy_Vice_President_Engineering/Inventory_App/inventory/python_files/',
+        args: [req.query.path, req.query.val]
+    };
+    PythonShell.run('data_finder.py', options, function (err, results) {
+        if (err) throw err;
+        // results is an array consisting of messages collected during execution
+        res.json(results);
+    });
+})
 
 export default {
     path: "/api",

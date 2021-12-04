@@ -1,11 +1,13 @@
 <template>
 <div>
+    <Metalchemy />
 <input type="text" id="Name">
 <input type="text" id="Quantity">
 <input type="text" id="Measure">
 <input type="text" id="Unit">
 <input type="text" id="Hazards">
-<button @click="upload" class="button"></button>
+<input type="file" @change="onFileChanged">
+<button @click="onUpload">Upload!</button>
 <div class="table">
         <div class="firstRow">
             <span class="Id_F">Id</span>
@@ -41,21 +43,24 @@
         return{
             show: false,
             items_list:[],
-            hazard_list:[]
+            hazard_list:[],
+            path:'',
+            selectedFile: null,
+            datal:{}
         }
     },
     async fetch(){
       
     },
     methods:{
-        async upload(){
+        async saveData(){
             let temp = []
             temp = await this.$axios.$post('http://localhost:3000/api/item',{
-                name: 'Test', 
+                name: this.datal[2], 
                 quantity: Number(1),
-                measure: Number(100),
-                unit: 'ml',
-                hazard: 'Flam'
+                measure: Number(this.datal[0]),
+                unit: this.datal[1],
+                hazard: this.datal.splice(3,this.datal.length)
             })
             if (!Array.isArray(temp)) {
                 temp = [temp]
@@ -68,10 +73,27 @@
             this.items_list = temp
             this.show = true
         },
-        async uploadHazard(){
-            this.hazard_list = await this.$axios.$post('http://localhost:3000/api/hazard',{
-                hazard:'Flam'
+        async uploadtest(){
+            this.datal = await this.$axios.$get('http://localhost:3000/api/imageUpload',{
+                params: { 
+                    path:'C:/Users/sidon/Documents/Metalchemy_Vice_President_Engineering/Inventory_App/inventory/' + this.path,
+                    val:'0' 
+                }
             })
+            console.log(this.datal)
+            this.saveData()
+
+        },
+        onFileChanged (event) {
+            this.selectedFile = event.target.files[0]
+        },
+        async onUpload() {
+            const formData = new FormData()
+            formData.append('File', this.selectedFile, this.selectedFile.name)
+            this.path = await this.$axios.$post( 'http://localhost:3000/api/upload-file', formData,{headers: {
+            'content-type': 'multipart/form-data'
+            }});
+            this.uploadtest()
         }
     }
         

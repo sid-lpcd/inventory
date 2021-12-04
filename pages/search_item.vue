@@ -1,5 +1,7 @@
 <template>
 <div>
+    <Metalchemy />
+    <div class="container">
     <h1 class="SelectType">Select the type:</h1>
     <select id="select" v-model="selection" @change="getType" class="select">
         <option class="opt" value="Name">Name</option>
@@ -33,20 +35,28 @@
         </div>
         <div v-if="show">
             <div v-for="(item,index) in search_list" :key="index" class="nextRow">
-                <span class="Id_N">{{item.id}}</span>
-                <span class="Name_N">{{item.name}}</span>
-                <span class="Quantity_N">{{item.quantity}}</span>
-                <span class="Measure_N">{{item.measure}} {{item.unit}}</span>
-                <span class="Entry_N">{{item.createdAt.slice(0,10)}}</span>
-                <span class="Updated_N"> {{item.updatedAt.slice(0,10)}}</span>
-                <div v-for="(hazard_n,index) in item.hazards" :key="index" class="Hazards_N" >
-                    <span class="Hazard_N">{{hazard_n.hazardName}}</span>
-                </div>
+                <span class="cont_s"><span class="Id_N">{{item.id}}</span></span>
+                <div class="cont_s"><span class="Name_N">{{item.name}}</span></div>
+                <div class="cont_s"><span class="Quantity_N">{{item.quantity}}</span></div>
+                <div class="cont_s"><span class="Measure_N">{{item.measure}} {{item.unit}}</span></div>
+                <div class="cont_s"><span class="Entry_N">{{item.createdAt.slice(0,10)}}</span></div>
+                <div class="cont_s"><span class="Updated_N"> {{item.updatedAt.slice(0,10)}}</span></div>
+                <div class="cont_s"><span v-for="(hazard_n,index) in item.hazards" :key="index" class="Hazards_N" >
+                    <span class="Hazard_N">{{hazard_n.hazardName}}; </span>
+                </span></div>
+                
+                
+                
+                
+                
+                
                 
             </div>
         </div>
         
+    </div>    
     </div>
+    
 </div>
 </template>
 
@@ -86,7 +96,9 @@
             }
             
         },
-
+        async DeleteItem(id){
+            await this.$axios.$get('http://localhost:3000/api/DeleteItemById',{ params: { searchString: id } })
+        },
         async getItem(){
             const sel = this.selection
             console.log(sel)
@@ -140,6 +152,10 @@
 </script>
 
 <style scoped>
+.container{
+    position: relative;
+    top: 40px;
+}
 .SelectType{
     position: absolute;
     top: 30px;
@@ -171,7 +187,7 @@
 .search_box{
     position: absolute;
     left: 30px;
-    top: 105px;
+    top: 85px;
     width: 6.5cm;
     height: 1cm;
     
@@ -198,7 +214,7 @@
 .button_search{
     position: absolute;
     right: 30px;
-    top: 108px;
+    top: 88px;
     width: 1cm;
     height: 1cm;
     background-image: url('data:image/png;base64,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');
@@ -228,6 +244,7 @@
 
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
+    font-weight: bold;
     text-align: center;
 }
 .Name_F{
@@ -242,6 +259,7 @@
 
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
+    font-weight: bold;
     text-align: center;
 }
 .Quantity_F{
@@ -256,6 +274,7 @@
 
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
+    font-weight: bold;
     text-align: center;
 }
 .Measure_F{
@@ -270,6 +289,7 @@
 
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
+    font-weight: bold;
     text-align: center;
 }
 .Entry_F{
@@ -284,6 +304,7 @@
 
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
+    font-weight: bold;
     text-align: center;
 }
 .Updated_F{
@@ -298,9 +319,119 @@
 
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
+    font-weight: bold;
     text-align: center;
 }
 .Hazards_F{
+ position: relative;
+    left: 3cm;
+    top: 0px;
+    width: 1cm;
+    height: 1cm;
+    margin: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+}
+.nextRow{
+    border: 1pt solid black;
+}
+.cont_s{
+    position: relative;
+    display: flex;
+    left: 10px;
+    width: 20px;
+    margin:0px;
+}
+.Id_N{
+    position: relative;
+    left: 0px;
+    top: 0px;
+    width: 1cm;
+    height: 1cm;
+    margin: 0px;
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    text-align: center;
+}
+.Name_N{
+    position: relative;
+    left: 0.6cm;
+    top: 0px;
+    width: 1cm;
+    height: 1cm;
+    margin: 0px;
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    text-align: center;
+}
+.Quantity_N{
+    position: relative;
+    left: 1.2cm;
+    top: 0px;
+    width: 1cm;
+    height: 1cm;
+    margin: 0px;
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    text-align: center;
+}
+.Measure_N{
+    position: relative;
+    left: 1.6cm;
+    top: 0px;
+    width: 1cm;
+    height: 1cm;
+    margin: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    text-align: center;
+}
+.Entry_N{
+    position: relative;
+    left: 2cm;
+    top: 0px;
+    width: 1cm;
+    height: 1cm;
+    margin: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    text-align: center;
+}
+.Updated_N{
+ position: relative;
+    left: 2.4cm;
+    top: 0px;
+    width: 1cm;
+    height: 1cm;
+    margin: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    text-align: center;
+}
+.Hazards_N{
  position: relative;
     left: 3cm;
     top: 0px;
