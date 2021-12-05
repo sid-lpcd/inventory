@@ -39,9 +39,9 @@ export default {
         }
     },
     async fetch(){
-        this.items_list = await this.$axios.$get('http://localhost:3000/api/allitems')
+        this.items_list = await this.$axios.$get('https://priceless-liskov-5e10f1.netlify.app/api/allitems')
         for( let i = 0; i <this.items_list.length; i++ ){
-            const hazArr = await this.$axios.$get('http://localhost:3000/api/HazardsInItem',{ params: { searchString: this.items_list[i].id } })
+            const hazArr = await this.$axios.$get('https://priceless-liskov-5e10f1.netlify.app/api/HazardsInItem',{ params: { searchString: this.items_list[i].id } })
             const hazards = {hazards: hazArr}
             Object.assign(this.items_list[i],hazards)     
         }
