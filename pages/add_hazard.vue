@@ -47,7 +47,7 @@
     methods:{
         async upload(){
             let temp = []
-            temp = await this.$axios.$post('http://localhost:3000/api/hazard',{
+            temp = await this.$axios.$post('https://priceless-liskov-5e10f1.netlify.app/api/hazard',{
                 type: document.getElementById('Type').value,
                 name: document.getElementById('ItemName').value,
                 hazard:document.getElementById('HazardName').value
@@ -56,7 +56,7 @@
                 temp = [temp]
             }
             for( let i = 0; i <temp.length; i++ ){
-                const hazArr = await this.$axios.$get('http://localhost:3000/api/HazardsInItem',{ params: { searchString: temp[i].id } })
+                const hazArr = await this.$axios.$get('https://priceless-liskov-5e10f1.netlify.app/api/HazardsInItem',{ params: { searchString: temp[i].id } })
                 const hazards = {hazards: hazArr}
                 Object.assign(temp[i],hazards)     
             }
