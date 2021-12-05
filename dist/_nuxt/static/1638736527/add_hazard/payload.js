@@ -1,0 +1,1 @@
+__NUXT_JSONP__("/add_hazard", {data:[{}],fetch:{},mutations:void 0});
