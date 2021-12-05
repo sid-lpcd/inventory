@@ -12,18 +12,18 @@
             <span class="Hazards_F">Hazards</span>
         </div>
 
-        <div v-for="(item,index) in items_list" :key="index" class="nextRow">
-            <div v-if="show">
-            <span class="cont_s"><span class="Id_N">{{item.id}}</span></span>
-            <div class="cont_s"><span class="Name_N">{{item.name}}</span></div>
-            <div class="cont_s"><span class="Quantity_N">{{item.quantity}}</span></div>
-            <div class="cont_s"><span class="Measure_N">{{item.measure}} {{item.unit}}</span></div>
-            <div class="cont_s"><span class="Entry_N">{{item.createdAt.slice(0,10)}}</span></div>
-            <div class="cont_s"><span class="Updated_N"> {{item.updatedAt.slice(0,10)}}</span></div>
-            <div class="cont_s"><span v-for="(hazard_n,index) in item.hazards" :key="index" class="Hazards_N" >
-                <span class="Hazard_N">{{hazard_n.hazardName}}; </span>
-            </span></div>  
-            </div>
+        <div v-for="(item,index) in items_list" :key="index">
+            <span v-if="show" class="nextRow">
+                <span class="Id_N">{{item.id}}</span>
+                <span class="Name_N">{{item.name}}</span>
+                <span class="Quantity_N">{{item.quantity}}</span>
+                <span class="Measure_N">{{item.measure}} {{item.unit}}</span>
+                <span class="Entry_N">{{item.createdAt.slice(0,10)}}</span>
+                <span class="Updated_N"> {{item.updatedAt.slice(0,10)}}</span>
+                <span class="Hazards_N">
+                    <span v-for="(hazard_n,index) in item.hazards" :key="index" class="Hazard_list">  {{hazard_n.hazardName}}; </span>
+                </span>  
+            </span>
         </div>
 
     </div>
@@ -86,7 +86,7 @@ export default {
     position: relative;
     left: 0.6cm;
     top: 0px;
-    width: 1cm;
+    width: 1.2cm;
     height: 1cm;
     margin: 0px;
     margin-block-start: 0px;
@@ -100,7 +100,7 @@ export default {
     position: relative;
     left: 1.2cm;
     top: 0px;
-    width: 1cm;
+    width: 1.5cm;
     height: 1cm;
     margin: 0px;
     margin-block-start: 0px;
@@ -114,7 +114,7 @@ export default {
     position: relative;
     left: 1.6cm;
     top: 0px;
-    width: 1cm;
+    width: 1.5cm;
     height: 1cm;
     margin: 0px;
     margin-left: 0px;
@@ -128,7 +128,7 @@ export default {
     position: relative;
     left: 2cm;
     top: 0px;
-    width: 1cm;
+    width: 2.5cm;
     height: 1cm;
     margin: 0px;
     margin-left: 0px;
@@ -142,7 +142,7 @@ export default {
  position: relative;
     left: 2.4cm;
     top: 0px;
-    width: 1cm;
+    width: 2.5cm;
     height: 1cm;
     margin: 0px;
     margin-left: 0px;
@@ -156,7 +156,7 @@ export default {
  position: relative;
     left: 3cm;
     top: 0px;
-    width: 1cm;
+    width: 1.5cm;
     height: 1cm;
     margin: 0px;
     margin-left: 0px;
@@ -168,13 +168,8 @@ export default {
 }
 .nextRow{
     border: 1pt solid black;
-}
-.cont_s{
-    position: relative;
     display: flex;
-    left: 10px;
-    width: 20px;
-    margin:0px;
+    flex-direction: row;
 }
 .Id_N{
     position: relative;
@@ -194,7 +189,7 @@ export default {
     position: relative;
     left: 0.6cm;
     top: 0px;
-    width: 1cm;
+    width: 1.2cm;
     height: 1cm;
     margin: 0px;
     margin-block-start: 0px;
@@ -208,7 +203,7 @@ export default {
     position: relative;
     left: 1.2cm;
     top: 0px;
-    width: 1cm;
+    width: 1.5cm;
     height: 1cm;
     margin: 0px;
     margin-block-start: 0px;
@@ -222,7 +217,7 @@ export default {
     position: relative;
     left: 1.6cm;
     top: 0px;
-    width: 1cm;
+    width: 1.5cm;
     height: 1cm;
     margin: 0px;
     margin-left: 0px;
@@ -236,7 +231,7 @@ export default {
     position: relative;
     left: 2cm;
     top: 0px;
-    width: 1cm;
+    width: 2.5cm;
     height: 1cm;
     margin: 0px;
     margin-left: 0px;
@@ -250,7 +245,7 @@ export default {
  position: relative;
     left: 2.4cm;
     top: 0px;
-    width: 1cm;
+    width: 2.5cm;
     height: 1cm;
     margin: 0px;
     margin-left: 0px;
@@ -264,7 +259,7 @@ export default {
  position: relative;
     left: 3cm;
     top: 0px;
-    width: 1cm;
+    width: 1.5cm;
     height: 1cm;
     margin: 0px;
     margin-left: 0px;
