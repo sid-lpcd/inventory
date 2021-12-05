@@ -3,7 +3,7 @@
     <Metalchemy />
     <div class="container">
     <h1 class="SelectType">Select the type:</h1>
-    <select id="select" v-model="selection" @change="getType" class="select">
+    <select id="select" v-model="selection" class="select" @change="getType" >
         <option class="opt" value="Name">Name</option>
         <option class="opt" value="Id">Id</option>
         <option class="opt" value="Date of Entry">Date of Entry</option>
@@ -19,10 +19,11 @@
         class="search_box"
         @keyup.enter="getItem">
 
-    <select v-if="selection =='Hazards'" id="hazard_select" v-model="selected_hazards" @change="getItem" class="hazard_selection" multiple>
+    <select v-if="selection =='Hazards'" id="hazard_select" v-model="selected_hazards" class="hazard_selection" multiple @change="getItem"  >
         <option v-for="(hazard,index) in hazards_list" :key="index" class="opt_haz" :value="hazard.hazardName">{{hazard.hazardName}}</option>
     </select>
     <button class="button_search" @click="getItem"></button>
+    </div>
     <div class="table">
         <div class="firstRow">
             <span class="Id_F">Id</span>
@@ -33,22 +34,21 @@
             <span class="Updated_F">Updated At</span>
             <span class="Hazards_F">Hazards</span>
         </div>
-        <div v-if="show">
-            <div v-for="(item,index) in search_list" :key="index" class="nextRow">
-                <span class="cont_s"><span class="Id_N">{{item.id}}</span></span>
-                <div class="cont_s"><span class="Name_N">{{item.name}}</span></div>
-                <div class="cont_s"><span class="Quantity_N">{{item.quantity}}</span></div>
-                <div class="cont_s"><span class="Measure_N">{{item.measure}} {{item.unit}}</span></div>
-                <div class="cont_s"><span class="Entry_N">{{item.createdAt.slice(0,10)}}</span></div>
-                <div class="cont_s"><span class="Updated_N"> {{item.updatedAt.slice(0,10)}}</span></div>
-                <div class="cont_s"><span v-for="(hazard_n,index) in item.hazards" :key="index" class="Hazards_N" >
-                    <span class="Hazard_N">{{hazard_n.hazardName}}; </span>
-                </span></div>  
-            </div>
-        </div>   
-    </div>    
-    </div>
-    
+
+        <div v-for="(item,index) in items_list" :key="index">
+            <span v-if="show" class="nextRow">
+                <span class="Id_N">{{item.id}}</span>
+                <span class="Name_N">{{item.name}}</span>
+                <span class="Quantity_N">{{item.quantity}}</span>
+                <span class="Measure_N">{{item.measure}} {{item.unit}}</span>
+                <span class="Entry_N">{{item.createdAt.slice(0,10)}}</span>
+                <span class="Updated_N"> {{item.updatedAt.slice(0,10)}}</span>
+                <span class="Hazards_N">
+                    <span v-for="(hazard_n,index2) in item.hazards" :key="index2" class="Hazard_list">  {{hazard_n.hazardName}}; </span>
+                </span>  
+            </span>
+        </div>
+    </div>  
 </div>
 </template>
 
@@ -93,11 +93,9 @@
         },
         async getItem(){
             const sel = this.selection
-            console.log(sel)
             let search =''
             if (sel !== 'Hazards') {
                 search = document.getElementById('search_box').value
-                console.log(search)
             }
             let startDate =''
             let endDate = ''
@@ -105,8 +103,6 @@
                 startDate = new Date(search)
                 endDate = new Date(search)
                 endDate.setDate(endDate.getDate() + 1)
-                console.log(startDate)
-                console.log(endDate)
             }
             let temp = []
             switch (sel) {
@@ -133,10 +129,8 @@
                 const hazards = {hazards: hazArr}
                 Object.assign(temp[i],hazards)     
             }
-            console.log(temp)
             this.search_list = temp
             this.show = true
-            console.log(this.search_list)
         }
 
     }
@@ -219,8 +213,12 @@
     top: 160px;
     width: 17cm;
     height: 1cm;
+    display: grid;
+    row-gap: 0px;
 }
 .firstRow{
+    display: flex;
+    flex-direction: row;
     width: 17cm;
     height: 1cm;
 }
@@ -236,14 +234,13 @@
 
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
-    font-weight: bold;
     text-align: center;
 }
 .Name_F{
     position: relative;
     left: 0.6cm;
     top: 0px;
-    width: 1cm;
+    width: 1.2cm;
     height: 1cm;
     margin: 0px;
     margin-block-start: 0px;
@@ -251,14 +248,13 @@
 
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
-    font-weight: bold;
     text-align: center;
 }
 .Quantity_F{
     position: relative;
     left: 1.2cm;
     top: 0px;
-    width: 1cm;
+    width: 1.5cm;
     height: 1cm;
     margin: 0px;
     margin-block-start: 0px;
@@ -266,14 +262,13 @@
 
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
-    font-weight: bold;
     text-align: center;
 }
 .Measure_F{
     position: relative;
     left: 1.6cm;
     top: 0px;
-    width: 1cm;
+    width: 1.5cm;
     height: 1cm;
     margin: 0px;
     margin-left: 0px;
@@ -281,14 +276,13 @@
 
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
-    font-weight: bold;
     text-align: center;
 }
 .Entry_F{
     position: relative;
     left: 2cm;
     top: 0px;
-    width: 1cm;
+    width: 2.5cm;
     height: 1cm;
     margin: 0px;
     margin-left: 0px;
@@ -296,14 +290,13 @@
 
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
-    font-weight: bold;
     text-align: center;
 }
 .Updated_F{
  position: relative;
     left: 2.4cm;
     top: 0px;
-    width: 1cm;
+    width: 2.5cm;
     height: 1cm;
     margin: 0px;
     margin-left: 0px;
@@ -311,14 +304,13 @@
 
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
-    font-weight: bold;
     text-align: center;
 }
 .Hazards_F{
  position: relative;
     left: 3cm;
     top: 0px;
-    width: 1cm;
+    width: 1.5cm;
     height: 1cm;
     margin: 0px;
     margin-left: 0px;
@@ -326,25 +318,19 @@
 
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
-    font-weight: bold;
     text-align: center;
 }
 .nextRow{
     border: 1pt solid black;
-}
-.cont_s{
-    position: relative;
     display: flex;
-    left: 10px;
-    width: 20px;
-    margin:0px;
+    flex-direction: row;
+    min-height: 17px;
 }
 .Id_N{
     position: relative;
     left: 0px;
-    top: 0px;
+    top: 2px;
     width: 1cm;
-    height: 1cm;
     margin: 0px;
     margin-block-start: 0px;
     margin-block-end: 0px;
@@ -352,13 +338,13 @@
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
     text-align: center;
+    line-height: 30px;
 }
 .Name_N{
     position: relative;
     left: 0.6cm;
-    top: 0px;
-    width: 1cm;
-    height: 1cm;
+    top: 2px;
+    width: 1.2cm;
     margin: 0px;
     margin-block-start: 0px;
     margin-block-end: 0px;
@@ -366,13 +352,13 @@
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
     text-align: center;
+    line-height: 30px;
 }
 .Quantity_N{
     position: relative;
     left: 1.2cm;
-    top: 0px;
-    width: 1cm;
-    height: 1cm;
+    top: 2px;
+    width: 1.5cm;
     margin: 0px;
     margin-block-start: 0px;
     margin-block-end: 0px;
@@ -380,13 +366,13 @@
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
     text-align: center;
+    line-height: 30px;
 }
 .Measure_N{
     position: relative;
     left: 1.6cm;
-    top: 0px;
-    width: 1cm;
-    height: 1cm;
+    top: 2px;
+    width: 1.5cm;
     margin: 0px;
     margin-left: 0px;
     margin-right: 0px;
@@ -394,13 +380,13 @@
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
     text-align: center;
+    line-height: 30px;
 }
 .Entry_N{
     position: relative;
     left: 2cm;
-    top: 0px;
-    width: 1cm;
-    height: 1cm;
+    top: 2px;
+    width: 2.5cm;
     margin: 0px;
     margin-left: 0px;
     margin-right: 0px;
@@ -408,13 +394,13 @@
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
     text-align: center;
+    line-height: 30px;
 }
 .Updated_N{
  position: relative;
     left: 2.4cm;
-    top: 0px;
-    width: 1cm;
-    height: 1cm;
+    top: 2px;
+    width: 2.5cm;
     margin: 0px;
     margin-left: 0px;
     margin-right: 0px;
@@ -422,13 +408,13 @@
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
     text-align: center;
+    line-height: 30px;
 }
 .Hazards_N{
  position: relative;
     left: 3cm;
-    top: 0px;
-    width: 1cm;
-    height: 1cm;
+    top: 2px;
+    width: 1.5cm;
     margin: 0px;
     margin-left: 0px;
     margin-right: 0px;
@@ -436,5 +422,11 @@
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
     text-align: center;
+    line-height: 30px;
+    display: flex;
+}
+.Hazards_list{
+    position: relative;
+
 }
 </style>

@@ -21,11 +21,10 @@
                 <span class="Entry_N">{{item.createdAt.slice(0,10)}}</span>
                 <span class="Updated_N"> {{item.updatedAt.slice(0,10)}}</span>
                 <span class="Hazards_N">
-                    <span v-for="(hazard_n,index) in item.hazards" :key="index" class="Hazard_list">  {{hazard_n.hazardName}}; </span>
+                    <span v-for="(hazard_n,index2) in item.hazards" :key="index2" class="Hazard_list">  {{hazard_n.hazardName}}; </span>
                 </span>  
             </span>
         </div>
-
     </div>
   </div>
 </template>

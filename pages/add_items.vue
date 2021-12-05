@@ -2,12 +2,12 @@
 <div>
     <Metalchemy />
     <div class="input_container">
-        <input type="file" @change="onFileChanged" class="file">
-        <button @click="onUpload" class="upload">Upload</button>
+        <input type="file" class="file" @change="onFileChanged" >
+        <button class="upload" @click="onUpload" >Upload</button>
         <div v-if="show1" class="Input_container">
             <div >
-                <span class="Name">{{this.datal[2]}}</span>
-                <span class="Measure"> {{this.datal[0]}} {{this.datal[1]}}</span>
+                <span class="Name">{{datal[2]}}</span>
+                <span class="Measure"> {{datal[0]}} {{datal[1]}}</span>
                 <span class="control_quantity">
                     <span class="quant">Quantity: </span>
                     <button class="less" @click="decrease">
@@ -21,7 +21,7 @@
             </div>
             
             <span v-for="(hazard_n,index) in hazard_list" :key="index" class="Hazards">  {{hazard_n}}; </span>
-            <button @click="saveData" class="confirm">Confirm</button>
+            <button class="confirm" @click="saveData" >Confirm</button>
         </div>
         
     </div>
@@ -46,7 +46,7 @@
             <span class="Entry_N">{{item.createdAt.slice(0,10)}}</span>
             <span class="Updated_N"> {{item.updatedAt.slice(0,10)}}</span>
             <span class="Hazards_N">
-                <span v-for="(hazard_n,index) in item.hazards" :key="index" class="Hazard_list">  {{hazard_n.hazardName}}; </span>
+                <span v-for="(hazard_n,index2) in item.hazards" :key="index2" class="Hazard_list">  {{hazard_n.hazardName}}; </span>
             </span>  
         </span>
     </div>
@@ -102,9 +102,7 @@
                     val:'0' 
                 }
             })
-            console.log(this.datal)
             this.hazard_list = this.datal.splice(3)
-            console.log(this.hazard_list)
             this.show1 = true
         },
         onFileChanged (event) {
