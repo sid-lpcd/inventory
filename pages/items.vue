@@ -60,7 +60,7 @@ export default {
     width: 17cm;
     height: 1cm;
     display: grid;
-    row-gap: 0px;
+    row-gap: 3px;
 }
 .firstRow{
     display: flex;
@@ -167,10 +167,13 @@ export default {
     text-align: center;
 }
 .nextRow{
-    border: 1pt solid black;
+    border: 1pt solid rgb(47, 148, 8);
     display: flex;
     flex-direction: row;
     min-height: 17px;
+    border-radius: 7px;
+    background-color: rgb(144, 223, 26);
+
 }
 .Id_N{
     position: relative;

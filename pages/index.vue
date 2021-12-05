@@ -16,25 +16,27 @@
           <p class="text_bt">All Items</p>
         </div>
         <div class="button_cont">
-          <NuxtLink to="/add_hazard" from="/" class="button_main">
-            <img class="img_haz" src="../assets/imgs/Hazards.png" alt="">        
-          </NuxtLink>
-          <p class="text_bt">Add New Hazard</p>
+ 
+        <NuxtLink to="/search_item" from="/" class="button_main">
+          <img class="img_search" src="../assets/imgs/search.png" alt=""> 
+        </NuxtLink>
+        <p class="text_bt">Search Item</p>
         </div>
         
       </div>
      <div class="but_gr">
        <div class="button_cont">
-        <NuxtLink to="/search_item" from="/" class="button_main">
-          <img class="img_search" src="../assets/imgs/search.png" alt=""> 
-        </NuxtLink>
-        <p class="text_bt">Search Item</p>
-       </div>
-       <div class="button_cont">
-        <NuxtLink to="/add_items" from="/" class="button_main">
+       <NuxtLink to="/add_items" from="/" class="button_main">
           <img class="img_add" src="../assets/imgs/Plus.png" alt="">
         </NuxtLink>
         <p class="text_bt">Add New Item</p>
+       </div>
+       <div class="button_cont">
+
+        <NuxtLink to="/add_hazard" from="/" class="button_main">
+            <img class="img_haz" src="../assets/imgs/Hazards.png" alt="">        
+          </NuxtLink>
+          <p class="text_bt">Add New Hazard</p>
        </div>
         
       </div>

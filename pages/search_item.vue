@@ -34,16 +34,18 @@
             <span class="Hazards_F">Hazards</span>
         </div>
         <div v-if="show">
-            <div v-for="(item,index) in search_list" :key="index" class="nextRow">
-                <span class="cont_s"><span class="Id_N">{{item.id}}</span></span>
-                <div class="cont_s"><span class="Name_N">{{item.name}}</span></div>
-                <div class="cont_s"><span class="Quantity_N">{{item.quantity}}</span></div>
-                <div class="cont_s"><span class="Measure_N">{{item.measure}} {{item.unit}}</span></div>
-                <div class="cont_s"><span class="Entry_N">{{item.createdAt.slice(0,10)}}</span></div>
-                <div class="cont_s"><span class="Updated_N"> {{item.updatedAt.slice(0,10)}}</span></div>
-                <div class="cont_s"><span v-for="(hazard_n,index) in item.hazards" :key="index" class="Hazards_N" >
-                    <span class="Hazard_N">{{hazard_n.hazardName}}; </span>
-                </span></div>  
+            <div v-for="(item,index) in items_list" :key="index">
+                <span v-if="show" class="nextRow">
+                    <span class="Id_N">{{item.id}}</span>
+                    <span class="Name_N">{{item.name}}</span>
+                    <span class="Quantity_N">{{item.quantity}}</span>
+                    <span class="Measure_N">{{item.measure}} {{item.unit}}</span>
+                    <span class="Entry_N">{{item.createdAt.slice(0,10)}}</span>
+                    <span class="Updated_N"> {{item.updatedAt.slice(0,10)}}</span>
+                    <span class="Hazards_N">
+                        <span v-for="(hazard_n,index) in item.hazards" :key="index" class="Hazard_list">  {{hazard_n.hazardName}}; </span>
+                    </span>  
+                </span>
             </div>
         </div>   
     </div>    
