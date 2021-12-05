@@ -35,7 +35,7 @@
             <span class="Hazards_F">Hazards</span>
         </div>
 
-        <div v-for="(item,index) in items_list" :key="index">
+        <div v-for="(item,index) in search_list" :key="index">
             <span v-if="show" class="nextRow">
                 <span class="Id_N">{{item.id}}</span>
                 <span class="Name_N">{{item.name}}</span>
