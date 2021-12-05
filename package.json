@@ -18,7 +18,8 @@
     "express": "^4.17.1",
     "multer": "^1.4.3",
     "nuxt": "^2.15.7",
-    "python-shell": "^3.0.1"
+    "python-shell": "^3.0.1",
+    "vue-numeric-input": "^2.0.0"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.14.7",
