@@ -77,7 +77,7 @@
     methods:{
         async saveData(){
             let temp = []
-            temp = await this.$axios.$post('http://localhost:3000/api/item',{
+            temp = await this.$axios.$post('https://priceless-liskov-5e10f1.netlify.app/api/item',{
                 name: this.datal[2], 
                 quantity: Number(1),
                 measure: Number(this.datal[0]),
@@ -88,7 +88,7 @@
                 temp = [temp]
             }
             for( let i = 0; i <temp.length; i++ ){
-                const hazArr = await this.$axios.$get('http://localhost:3000/api/HazardsInItem',{ params: { searchString: temp[i].id } })
+                const hazArr = await this.$axios.$get('https://priceless-liskov-5e10f1.netlify.app/api/HazardsInItem',{ params: { searchString: temp[i].id } })
                 const hazards = {hazards: hazArr}
                 Object.assign(temp[i],hazards)     
             }
@@ -96,7 +96,7 @@
             this.show = true
         },
         async uploadtest(){
-            this.datal = await this.$axios.$get('http://localhost:3000/api/imageUpload',{
+            this.datal = await this.$axios.$get('https://priceless-liskov-5e10f1.netlify.app/api/imageUpload',{
                 params: { 
                     path:'C:/Users/sidon/Documents/Metalchemy_Vice_President_Engineering/Inventory_App/inventory/' + this.path,
                     val:'0' 
@@ -111,7 +111,7 @@
         async onUpload() {
             const formData = new FormData()
             formData.append('File', this.selectedFile, this.selectedFile.name)
-            this.path = await this.$axios.$post( 'http://localhost:3000/api/upload-file', formData,{headers: {
+            this.path = await this.$axios.$post( 'https://priceless-liskov-5e10f1.netlify.app/api/upload-file', formData,{headers: {
             'content-type': 'multipart/form-data'
             }});
             this.uploadtest()
