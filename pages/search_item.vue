@@ -67,7 +67,7 @@
         }
     },
     async fetch(){
-        this.hazards_list = await this.$axios.$get('http://localhost:3000/api/allhazards')
+        this.hazards_list = await this.$axios.$get('https://priceless-liskov-5e10f1.netlify.app/api/allhazards')
 
     },
     methods:{
@@ -89,7 +89,7 @@
             
         },
         async DeleteItem(id){
-            await this.$axios.$get('http://localhost:3000/api/DeleteItemById',{ params: { searchString: id } })
+            await this.$axios.$get('https://priceless-liskov-5e10f1.netlify.app/api/DeleteItemById',{ params: { searchString: id } })
         },
         async getItem(){
             const sel = this.selection
@@ -107,17 +107,17 @@
             let temp = []
             switch (sel) {
                 case 'Name':     
-                    temp = await this.$axios.$get('http://localhost:3000/api/ItemByName',{ params: { searchString: search } })
+                    temp = await this.$axios.$get('https://priceless-liskov-5e10f1.netlify.app/api/ItemByName',{ params: { searchString: search } })
                     break;
             
                 case 'Id':
-                    temp = await this.$axios.$get('http://localhost:3000/api/ItemById',{ params: { searchString: search } })
+                    temp = await this.$axios.$get('https://priceless-liskov-5e10f1.netlify.app/api/ItemById',{ params: { searchString: search } })
                     break;
                 case 'Date of Entry':
-                    temp = await this.$axios.$get('http://localhost:3000/api/ItemByDate',{ params: { start: startDate, end: endDate } })
+                    temp = await this.$axios.$get('https://priceless-liskov-5e10f1.netlify.app/api/ItemByDate',{ params: { start: startDate, end: endDate } })
                     break;
                 case 'Hazards':
-                    temp = await this.$axios.$get('http://localhost:3000/api/ItemByHazard',{ params: { searchString: this.selected_hazards } })
+                    temp = await this.$axios.$get('https://priceless-liskov-5e10f1.netlify.app/api/ItemByHazard',{ params: { searchString: this.selected_hazards } })
                     break;
             }
             if (!Array.isArray(temp)) {
@@ -125,7 +125,7 @@
             }
    
     	    for( let i = 0; i <temp.length; i++ ){
-                const hazArr = await this.$axios.$get('http://localhost:3000/api/HazardsInItem',{ params: { searchString: temp[i].id } })
+                const hazArr = await this.$axios.$get('https://priceless-liskov-5e10f1.netlify.app/api/HazardsInItem',{ params: { searchString: temp[i].id } })
                 const hazards = {hazards: hazArr}
                 Object.assign(temp[i],hazards)     
             }
