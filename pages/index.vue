@@ -119,7 +119,7 @@ column-gap: 50px
   height: 1cm;
   bottom: 0px;
   left: 0px;
-  font-family: Metalchemy-reg;
+  font-family: Arial, Helvetica, sans-serif;
   font-style: normal;
   font-weight: normal;
   font-size: 14px;
@@ -136,7 +136,7 @@ column-gap: 50px
   cursor: pointer;
   display: inline-block;
 
-  font-family: Metalchemy-reg;
+  font-family: Arial, Helvetica, sans-serif;
   font-style: normal;
 
   font-size: 18px;
