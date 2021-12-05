@@ -107,7 +107,9 @@
             let temp = []
             switch (sel) {
                 case 'Name':     
+                    console.log('Start')
                     temp = await this.$axios.$get('https://zen-brown-d8c780.netlify.app/api/ItemByName',{ params: { searchString: search } })
+                    console.log(temp)
                     break;
             
                 case 'Id':
