@@ -57,45 +57,45 @@ export default {
   width: 9cm;
 }
 .text{
-  font-family: Metalchemy-reg;
+  font-family: Arial, Helvetica, sans-serif;
   font-style: normal;
   font-weight: normal;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 0.6cm;
   text-align: justify;
 }
 .bullet{
   position: relative;
   top: -10px;
-  font-family: Metalchemy-reg;
+  font-family: Arial, Helvetica, sans-serif;
   font-style: normal;
   font-weight: normal;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 0.6cm;
   text-align: justify;
 }
 .bullet2{
   position: relative;
   top: -20px;
-  font-family: Metalchemy-reg;
+  font-family: Arial, Helvetica, sans-serif;
   font-style: normal;
   font-weight: normal;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 0.6cm;
   text-align: justify;
 }
 .bullet3{
   position: relative;
   top: -30px;
-  font-family: Metalchemy-reg;
+  font-family: Arial, Helvetica, sans-serif;
   font-style: normal;
   font-weight: normal;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 0.6cm;
   text-align: justify;
 }
 .button_grid{
-  padding: 9cm 30px;
+  padding: 8cm 40px;
   display: grid;
   column-gap: 60px;
   row-gap: 20px;

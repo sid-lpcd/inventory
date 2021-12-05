@@ -43,17 +43,9 @@
                 <div class="cont_s"><span class="Updated_N"> {{item.updatedAt.slice(0,10)}}</span></div>
                 <div class="cont_s"><span v-for="(hazard_n,index) in item.hazards" :key="index" class="Hazards_N" >
                     <span class="Hazard_N">{{hazard_n.hazardName}}; </span>
-                </span></div>
-                
-                
-                
-                
-                
-                
-                
+                </span></div>  
             </div>
-        </div>
-        
+        </div>   
     </div>    
     </div>
     
