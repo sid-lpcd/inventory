@@ -60,7 +60,7 @@ export default {
     width: 17cm;
     height: 1cm;
     display: grid;
-    row-gap: 10px;
+    row-gap: 0px;
 }
 .firstRow{
     display: flex;
@@ -170,13 +170,13 @@ export default {
     border: 1pt solid black;
     display: flex;
     flex-direction: row;
+    min-height: 17px;
 }
 .Id_N{
     position: relative;
     left: 0px;
-    top: 0px;
+    top: 2px;
     width: 1cm;
-    height: 1cm;
     margin: 0px;
     margin-block-start: 0px;
     margin-block-end: 0px;
@@ -184,13 +184,13 @@ export default {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
     text-align: center;
+    line-height: 30px;
 }
 .Name_N{
     position: relative;
     left: 0.6cm;
-    top: 0px;
+    top: 2px;
     width: 1.2cm;
-    height: 1cm;
     margin: 0px;
     margin-block-start: 0px;
     margin-block-end: 0px;
@@ -198,13 +198,13 @@ export default {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
     text-align: center;
+    line-height: 30px;
 }
 .Quantity_N{
     position: relative;
     left: 1.2cm;
-    top: 0px;
+    top: 2px;
     width: 1.5cm;
-    height: 1cm;
     margin: 0px;
     margin-block-start: 0px;
     margin-block-end: 0px;
@@ -212,13 +212,13 @@ export default {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
     text-align: center;
+    line-height: 30px;
 }
 .Measure_N{
     position: relative;
     left: 1.6cm;
-    top: 0px;
+    top: 2px;
     width: 1.5cm;
-    height: 1cm;
     margin: 0px;
     margin-left: 0px;
     margin-right: 0px;
@@ -226,13 +226,13 @@ export default {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
     text-align: center;
+    line-height: 30px;
 }
 .Entry_N{
     position: relative;
     left: 2cm;
-    top: 0px;
+    top: 2px;
     width: 2.5cm;
-    height: 1cm;
     margin: 0px;
     margin-left: 0px;
     margin-right: 0px;
@@ -240,13 +240,13 @@ export default {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
     text-align: center;
+    line-height: 30px;
 }
 .Updated_N{
  position: relative;
     left: 2.4cm;
-    top: 0px;
+    top: 2px;
     width: 2.5cm;
-    height: 1cm;
     margin: 0px;
     margin-left: 0px;
     margin-right: 0px;
@@ -254,13 +254,13 @@ export default {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
     text-align: center;
+    line-height: 30px;
 }
 .Hazards_N{
  position: relative;
     left: 3cm;
-    top: 0px;
+    top: 2px;
     width: 1.5cm;
-    height: 1cm;
     margin: 0px;
     margin-left: 0px;
     margin-right: 0px;
@@ -268,6 +268,7 @@ export default {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
     text-align: center;
+    line-height: 30px;
     display: flex;
 }
 .Hazards_list{
