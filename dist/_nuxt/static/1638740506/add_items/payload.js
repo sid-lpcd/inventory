@@ -1,0 +1,1 @@
+__NUXT_JSONP__("/add_items", (function(a){return {data:[{}],fetch:{"0":{show:a,show1:a,items_list:[],hazard_list:[],path:"",selectedFile:null,datal:{},quantity:1}},mutations:void 0}}(false)));
