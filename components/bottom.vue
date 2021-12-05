@@ -1,7 +1,7 @@
 <template>
   <div>
       <p class="bot_logo">
-          metalchemy limited
+          Metalchemy Limited
       </p>
       <p class="copyright">copyright © 2021 - all rights reserved </p>
   </div>
