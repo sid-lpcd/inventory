@@ -39,7 +39,7 @@ export default {
         }
     },
     async fetch(){
-        this.items_list = await this.$axios.$get('https://priceless-liskov-5e10f1.netlify.app/api/allitems')
+        this.items_list = await this.$axios.$get('https://priceless-chandrasekhar-973f9e.netlify.app/.netlify/functions/allitems')
         for( let i = 0; i <this.items_list.length; i++ ){
             const hazArr = await this.$axios.$get('https://priceless-liskov-5e10f1.netlify.app/api/HazardsInItem',{ params: { searchString: this.items_list[i].id } })
             const hazards = {hazards: hazArr}
