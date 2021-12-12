@@ -51,6 +51,6 @@ export default {
   serverMiddleware:[
     '~/api/index.js',
   ],
-  target: 'static'
+  target: 'server'
 
 }

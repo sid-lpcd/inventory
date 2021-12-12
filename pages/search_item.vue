@@ -107,7 +107,7 @@
             let temp = []
             switch (sel) {
                 case 'Name':     
-                    temp = await this.$axios.$get('https://testsidlpcd.herokuapp.com/api/ItemByName',{ params: { searchString: search } })
+                    temp = await this.$axios.$get('http://localhost:3000/api/ItemByName',{ params: { searchString: search } })
                     break;
             
                 case 'Id':
