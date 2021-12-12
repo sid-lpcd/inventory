@@ -31,7 +31,7 @@ export default {
 .copyright{
     position: absolute;
     left: 0px;
-    bottom: 20px;
+    bottom: 10px;
     width:375px;
     height:2cm;
     

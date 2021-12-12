@@ -1,10 +1,16 @@
 <template>
 <div>
     <Metalchemy />
-    <input id="Type" type="text" >
-    <input id="ItemName" type="text" >
-    <input id="HazardName" type="text" >
-    <button class="button" @click="upload" ></button>
+    <div class="input_container">
+        <p>Last or All</p>
+        <input id="Type" type="text" >
+        <p>Item Name</p>
+        <input id="ItemName" type="text" >
+        <p>Hazard Name</p>
+        <input id="HazardName" type="text" >
+        <button class="button" @click="upload" ></button>
+    </div>
+    
     <div class="table">
         <div class="firstRow">
             <span class="Id_F">Id</span>
@@ -70,6 +76,10 @@
 </script>
 
 <style >
+.input_container{
+    position: relative;
+    top: 100px;
+}
 .button{
     width: 2cm;
     height: 2cm;

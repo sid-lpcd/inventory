@@ -9,8 +9,8 @@
         <option class="opt" value="Date of Entry">Date of Entry</option>
         <option class="opt" value="Hazards">Hazards</option>
     </select>
-    
-    <input 
+    <div class="select_container">
+        <input 
         v-if="selection !='Hazards'"
         id="search_box"
         ref="input" 
@@ -22,6 +22,8 @@
     <select v-if="selection =='Hazards'" id="hazard_select" v-model="selected_hazards" class="hazard_selection" multiple @change="getItem"  >
         <option v-for="(hazard,index) in hazards_list" :key="index" class="opt_haz" :value="hazard.hazardName">{{hazard.hazardName}}</option>
     </select>
+    </div>
+    
     <button class="button_search" @click="getItem"></button>
     </div>
     <div class="table">
@@ -170,10 +172,15 @@
     font-size: 10px;
     text-align: center;
 }
-.search_box{
-    position: absolute;
+.select_container{
+    position: relative;
     left: 30px;
     top: 85px;
+    width: 100px;
+    height: 100px;
+}
+.search_box{
+    position: absolute;
     width: 6.5cm;
     height: 1cm;
     
@@ -188,9 +195,8 @@
 }
 .hazard_selection{
     position: absolute;
-    left: 30px;
-    top: 105px;
     width: 6.5cm;
+    height: 100px;
 }
 .opt_haz{
     font-family: Arial, Helvetica, sans-serif;
